@@ -44,4 +44,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function posesiones()
+    {
+        return $this->hasMany(Posesion::class, 'user_id');
+    }
 }

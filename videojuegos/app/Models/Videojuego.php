@@ -13,4 +13,9 @@ class Videojuego extends Model
         return $this->belongsTo(Desarrolladora::class);
     }
 
+    public function posesiones()
+    {
+        return $this->hasMany(Posesion::class, 'videojuego_id');
+    }
+
 }
