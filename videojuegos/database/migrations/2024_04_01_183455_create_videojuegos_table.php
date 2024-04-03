@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('videojuegos', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->integer('anyo');
+            $table->foreignId('desarroladora_id')->constrained();
             $table->timestamps();
         });
     }
