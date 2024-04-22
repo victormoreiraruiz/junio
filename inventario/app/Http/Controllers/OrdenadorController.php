@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrdenadorRequest;
 use App\Http\Requests\UpdateOrdenadorRequest;
 use App\Models\Ordenador;
+use GuzzleHttp\Psr7\Request;
 
 class OrdenadorController extends Controller
 {
@@ -13,7 +14,9 @@ class OrdenadorController extends Controller
      */
     public function index()
     {
-        //
+        return view('ordenadores.index', [
+            'ordenadores' => Ordenador::all(),
+        ]);
     }
 
     /**
@@ -21,15 +24,20 @@ class OrdenadorController extends Controller
      */
     public function create()
     {
-        //
+        return view('ordenadors.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrdenadorRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $ordenador = new Ordenador();
+        $ordenador->titulo = $request->input('titulo');
+        $ordenador->save();
+        session()->flash('success', 'El ordenador se ha creado correctamente.');
+        return redirect()->route('ordenadores.index');
     }
 
     /**
@@ -37,7 +45,9 @@ class OrdenadorController extends Controller
      */
     public function show(Ordenador $ordenador)
     {
-        //
+        return view('ordenadores.show', [
+            'ordenador' => $ordenador,
+        ]);
     }
 
     /**
@@ -45,15 +55,23 @@ class OrdenadorController extends Controller
      */
     public function edit(Ordenador $ordenador)
     {
-        //
+
+            return view('ordenadores.edit', [
+                'ordenador' => $ordenador,
+            ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrdenadorRequest $request, Ordenador $ordenador)
+    public function update(Request $request, Ordenador $ordenador)
     {
-        //
+
+            $ordenador->nombre = $request->input('nombre');
+            $ordenador->modelo = $request->input('modelo');
+            $ordenador->save();
+        return redirect()->route('ordenadores.index');
     }
 
     /**
@@ -61,6 +79,10 @@ class OrdenadorController extends Controller
      */
     public function destroy(Ordenador $ordenador)
     {
-        //
+        {
+            $ordenador->delete();
+            session()->flash('success', 'El ordenador se ha eliminado correctamente.');
+        }
+        return redirect()->route('ordenadores.index');
     }
 }

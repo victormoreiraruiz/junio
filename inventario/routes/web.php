@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrdenadorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('ordenadores', OrdenadorController::class)->parameters(['ordenadores' => 'ordenador']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
