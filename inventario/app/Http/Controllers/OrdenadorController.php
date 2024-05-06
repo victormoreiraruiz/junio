@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrdenadorRequest;
 use App\Http\Requests\UpdateOrdenadorRequest;
+use App\Models\Aula;
 use App\Models\Ordenador;
 use GuzzleHttp\Psr7\Request;
 
@@ -24,7 +25,8 @@ class OrdenadorController extends Controller
      */
     public function create()
     {
-        return view('ordenadors.create');
+        $aulas = Aula::all();
+        return view('ordenadores.create');
     }
 
     /**
