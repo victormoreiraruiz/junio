@@ -25,8 +25,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        /*DB::statement('ALTER TABLE vuelos ADD CONSTRAINT ck_codigo_valido CHECK (codigo SIMILAR TO '%[A-Z]{2}[0-9]{3});
-        */
+        DB::statement("ALTER TABLE vuelos
+                ADD CONSTRAINT ck_codigo_valido
+                CHECK (codigo SIMILAR TO '%[A-Z]{2}[0-9]{4}%')");
     }
 
     /**

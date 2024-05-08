@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Reserva;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +21,18 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'reservas' => Auth::user()->reservas,
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/reservas/{reserva}', function (Reserva $reserva) {
+    return view('reservas.show', [
+        'reserva' => $reserva,
+    ]);
+})->name('reservas.show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
